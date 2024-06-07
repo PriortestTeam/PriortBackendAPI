@@ -37,7 +37,7 @@ public class RoleController {
      * @return
      */
     @GetMapping(value = "/findUserRole")
-    @Operation(description = "角色对应应用显示")
+    @Operation(summary = "角色对应应用显示")
     public JSONArray findUserRole(@RequestParam("UBType") String type, @RequestParam("UBKeyId") String keyId){
         JSONArray arr = new JSONArray();
         try {
@@ -63,13 +63,13 @@ public class RoleController {
     }
 
     @GetMapping(value = "/roleList")
-    @Operation(description = "查询全部角色列表")
+    @Operation(summary = "查询全部角色列表")
     public Resp<List<SysRole>> allList() {
         return sysRoleService.queryRoles();
     }
 
     @GetMapping(value = "/getAccountRole")
-    @Operation(description = "查询全部角色为该角色的用户")
+    @Operation(summary = "查询全部角色为该角色的用户")
     public Resp<List<SysUserRoleDto>> getAccountRole(@RequestParam  String roleName) {
         return sysRoleService.getAccountRole(roleName);
     }

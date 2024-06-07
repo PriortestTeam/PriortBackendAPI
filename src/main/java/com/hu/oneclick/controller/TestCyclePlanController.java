@@ -59,7 +59,7 @@ public class TestCyclePlanController extends BaseController {
     private QuartzManager qtzManager;
 
 
-    @Operation(description = "列表")
+    @Operation(summary = "列表")
     @PostMapping("/list/{testCycleId}")
     public Resp<PageInfo<JobDetails>> list(@Parameter(description = "测试周期ID") @PathVariable Long testCycleId) {
         try {
@@ -71,7 +71,7 @@ public class TestCyclePlanController extends BaseController {
         }
     }
 
-    @Operation(description = "新增")
+    @Operation(summary = "新增")
     @PostMapping("/save")
     public Resp<TestCyclePlan> save(@RequestBody @Validated TestCyclePlanSaveDto dto) {
         try {
@@ -101,7 +101,7 @@ public class TestCyclePlanController extends BaseController {
         }
     }
 
-    @Operation(description = "详情")
+    @Operation(summary = "详情")
     @GetMapping("/info/{id}")
     public Resp<TestCyclePlan> info(@PathVariable Long id) {
         try {
@@ -121,7 +121,7 @@ public class TestCyclePlanController extends BaseController {
         }
     }
 
-    @Operation(description = "删除")
+    @Operation(summary = "删除")
     @DeleteMapping("/delete/{ids}")
     public Resp<?> delete(@PathVariable Long[] ids) {
         try {

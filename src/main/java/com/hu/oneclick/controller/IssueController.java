@@ -29,7 +29,7 @@ public class IssueController extends BaseController {
         this.issueService = issueService;
     }
 
-    @Operation(description = "列表")
+    @Operation(summary = "列表")
     @PostMapping("/list")
     public Resp<PageInfo<Issue>> list(@RequestBody IssueParam param) {
         if (null == param) {
@@ -41,7 +41,7 @@ public class IssueController extends BaseController {
     }
 
 
-    @Operation(description = "新增")
+    @Operation(summary = "新增")
     @PostMapping("/save")
     public Resp<?> save(@RequestBody @Validated IssueSaveDto dto) {
         try {
@@ -53,7 +53,7 @@ public class IssueController extends BaseController {
         }
     }
 
-    @Operation(description = "修改")
+    @Operation(summary = "修改")
     @PutMapping("/update")
     public Resp<Issue> update(@RequestBody @Validated IssueSaveDto dto) {
         try {
@@ -68,14 +68,14 @@ public class IssueController extends BaseController {
         }
     }
 
-    @Operation(description = "详情")
+    @Operation(summary = "详情")
     @GetMapping("/info/{id}")
     public Resp<Issue> info(@PathVariable Long id) {
         Issue issue = this.issueService.info(id);
         return new Resp.Builder<Issue>().setData(issue).ok();
     }
 
-    @Operation(description = "删除")
+    @Operation(summary = "删除")
     @DeleteMapping("/delete/{ids}")
     public Resp<?> delete(@PathVariable Long[] ids) {
         try {
@@ -88,7 +88,7 @@ public class IssueController extends BaseController {
     }
 
 
-    @Operation(description = "克隆")
+    @Operation(summary = "克隆")
     @PostMapping("/clone")
     public Resp<?> clone(@RequestBody @Validated Long[] ids) {
         try {

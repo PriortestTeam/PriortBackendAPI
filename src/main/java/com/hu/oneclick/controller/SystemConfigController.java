@@ -24,26 +24,26 @@ public class SystemConfigController {
     private SystemConfigService systemConfigService;
 
     @PostMapping("/insert")
-    @Operation(description = "增")
+    @Operation(summary = "增")
     public Resp<String> insert(@RequestBody SystemConfig systemConfig) {
         return systemConfigService.insert(systemConfig);
     }
 
     @PostMapping("/update")
-    @Operation(description = "改")
+    @Operation(summary = "改")
     public Resp<String> update(@RequestBody SystemConfig systemConfig) {
         return systemConfigService.update(systemConfig);
     }
 
     @PostMapping("/getData")
-    @Operation(description = "查")
+    @Operation(summary = "查")
     public Resp<String> getData(@RequestParam String key) {
         String data = systemConfigService.getData(key);
         return new Resp.Builder<String>().setData(data).ok();
     }
 
     @DeleteMapping("/delete")
-    @Operation(description = "删")
+    @Operation(summary = "删")
     public Resp<String> delete(@RequestParam String key) {
         String data = systemConfigService.delete(key);
         return new Resp.Builder<String>().setData(data).ok();
@@ -51,14 +51,14 @@ public class SystemConfigController {
 
 
     @PostMapping("/getDataUi")
-    @Operation(description = "查ui")
+    @Operation(summary = "查ui")
     public Resp<SystemConfig> getDataUi(@RequestParam String key) {
         SystemConfig data = systemConfigService.getDataUI(key);
         return new Resp.Builder<SystemConfig>().setData(data).ok();
     }
 
     @GetMapping("getAllUi")
-    @Operation(description = "查所有ui")
+    @Operation(summary = "查所有ui")
     public Resp<List<SystemConfig>> getAllUi() {
         List<SystemConfig> data = systemConfigService.getAllUi();
         return new Resp.Builder<List<SystemConfig>>().setData(data).ok();

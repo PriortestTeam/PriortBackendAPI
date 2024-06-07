@@ -65,26 +65,26 @@ public class SignOffController {
     }
 
     @PostMapping("/generate")
-    @Operation(description = "生成pdf文档")
+    @Operation(summary = "生成pdf文档")
     public Resp<String> generate(@RequestBody SignOffDto signOffDto) {
         return projectService.generate(signOffDto);
     }
 
     @PostMapping("/upload")
-    @Operation(description = "文件上传")
+    @Operation(summary = "文件上传")
     public Resp<String> upload(@RequestBody MultipartFile file) {
         return projectService.upload(file);
     }
 
     @GetMapping("/delete")
-    @Operation(description = "文件删除")
+    @Operation(summary = "文件删除")
     public Resp<String> delete(@RequestParam String fileId) {
         return attachmentService.deleteAttachmentById(fileId);
     }
 
 
     @GetMapping("/getPdf")
-    @Operation(description = "返回当前项目下产生的PDF列表")
+    @Operation(summary = "返回当前项目下产生的PDF列表")
     public  Resp< List<ProjectSignOff>> getPdf() {
         return signOffService.getPdf();
     }
@@ -92,14 +92,14 @@ public class SignOffController {
 
 
     @GetMapping("/getUserAttachmentSign")
-    @Operation(description = "访问用户签名文件路径")
+    @Operation(summary = "访问用户签名文件路径")
     public Resp<List<Map<String, Object>>> getUserAttachmentSign() {
         return attachmentService.getUserAttachment();
     }
 
 
     @GetMapping("getProjectListByUser")
-    @Operation(description = "获取当前用户下title列表")
+    @Operation(summary = "获取当前用户下title列表")
     public Resp<List<LeftJoinDto>> getProjectListByUser()
     {
         return userProjectService.getUserByProject();

@@ -55,7 +55,7 @@ public class FunctionController {
      * @throws Exception
      */
     @PostMapping(value = "/findMenuByPNumber")
-    @Operation(description = "根据父编号查询菜单")
+    @Operation(summary = "根据父编号查询菜单")
     public Resp<JSONArray> findMenuByPNumber(@RequestBody JSONObject jsonObject,
                                              HttpServletRequest request) throws Exception {
         String pNumber = jsonObject.getString("pNumber");
@@ -129,7 +129,7 @@ public class FunctionController {
      * @return
      */
     @GetMapping(value = "/findRoleFunction")
-    @Operation(description = "角色对应功能显示")
+    @Operation(summary = "角色对应功能显示")
     public Resp<JSONArray> findRoleFunction(@RequestParam("roleId") Long roleId,
                                             @RequestParam("projectId") Long projectId,
                                             @RequestParam("userId") Long userId,
@@ -221,7 +221,7 @@ public class FunctionController {
      * @return
      */
     @GetMapping(value = "/findRoleFunctionsById")
-    @Operation(description = "根据id列表查找功能信息")
+    @Operation(summary = "根据id列表查找功能信息")
     public Resp<JSONObject> findByIds(@RequestParam("roleId") Long roleId) {
         try {
             List<SysUserBusiness> list = userBusinessService.getBasicData(roleId.toString(), "RoleFunctions");
@@ -275,7 +275,7 @@ public class FunctionController {
      * @return
      */
     @PostMapping(value = "/saveRoleFunction")
-    @Operation(description = "保存用户角色功能")
+    @Operation(summary = "保存用户角色功能")
     public Resp<Object> saveRoleFunction(@RequestBody @Valid RoleProjectFunctionDTO dto) {
 
         SysUserBusiness sysUserBusiness = userBusinessService.getRoleProjectFunction(dto.getRoleId(), dto.getProjectId(), dto.getUserId());

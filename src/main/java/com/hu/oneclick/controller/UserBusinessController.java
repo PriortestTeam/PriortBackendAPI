@@ -28,7 +28,7 @@ public class UserBusinessController {
      * @throws Exception
      */
     @GetMapping(value = "/checkIsValueExist")
-    @Operation(description = "校验存在")
+    @Operation(summary = "校验存在")
     public Resp<Long> checkIsValueExist(@RequestParam(value = "type", required = false) String type,
                                         @RequestParam(value = "keyId", required = false) String keyId) {
         Long id = userBusinessService.checkIsValueExist(type, keyId);
@@ -42,7 +42,7 @@ public class UserBusinessController {
      * @return
      */
     @PostMapping(value = "/updateBtnStr")
-    @Operation(description = "更新角色的按钮权限")
+    @Operation(summary = "更新角色的按钮权限")
     public Resp<String> updateBtnStr(@RequestBody JSONObject jsonObject) {
 
         String roleId = jsonObject.getString("roleId");
