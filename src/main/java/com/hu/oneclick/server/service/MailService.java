@@ -1,8 +1,7 @@
 package com.hu.oneclick.server.service;
 
 import com.hu.oneclick.model.domain.dto.MailDto;
-
-import javax.mail.MessagingException;
+import jakarta.mail.MessagingException;
 
 /**
  * @author xwf

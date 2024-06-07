@@ -58,7 +58,11 @@ mybatis:
 logging:
   config: classpath:log4j2.yml
 #  level: info
-
+  # Security debug 日志
+  level:
+    org:
+      springframework:
+        security: DEBUG
 
 
 onclick:
@@ -76,4 +80,5 @@ onclick:
   time:
     firstTime: 30
     secondTime: 15
-  dirPath: /usr/oneclick/data/file
+#  dirPath: /usr/oneclick/data/file
+  dirPath: /Users/zhf/Downloads/file

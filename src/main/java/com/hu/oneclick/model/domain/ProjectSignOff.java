@@ -1,6 +1,6 @@
 package com.hu.oneclick.model.domain;
 
-import io.swagger.annotations.ApiModel;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -10,7 +10,7 @@ import java.util.Date;
  * project_sign_off
  * @author 
  */
-@ApiModel(value="com.hu.oneclick.model.domain.ProjectSignOff")
+@Schema(name = "com.hu.oneclick.model.domain.ProjectSignOff")
 @Data
 public class ProjectSignOff implements Serializable {
     private String id;

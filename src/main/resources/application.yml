@@ -1,6 +1,13 @@
 spring:
   profiles:
     active: @profileActive@
+  mvc:
+    pathmatch:
+      # 由于Spring Boot 2.6引入了新的PathPatternParser，导致 Springfox 与之不兼容
+      matching-strategy: ant_path_matcher
+  main:
+    # 自动打破循环依赖
+    allow-circular-references: true
   quartz:
     #相关属性配置
     properties:
@@ -10,7 +17,9 @@ spring:
             instanceName: clusteredScheduler
             instanceId: AUTO
           jobStore:
-            class: org.quartz.impl.jdbcjobstore.JobStoreTX
+            #            class: org.quartz.impl.jdbcjobstore.JobStoreTX
+            # 2.5.6的版本后将不再支持以上方式进行配置默认数据源，需改为如下配置
+            class: org.springframework.scheduling.quartz.LocalDataSourceJobStore
             driverDelegateClass: org.quartz.impl.jdbcjobstore.StdJDBCDelegate
             tablePrefix: QRTZ_
             isClustered: false
@@ -53,3 +62,34 @@ jenkins:
 logging:
   level:
     cn.zhxu.bs: DEBUG
+
+
+
+# springdoc-openapi项目配置
+springdoc:
+  swagger-ui:
+    #    enabled: true # 开启swagger界面，依赖OpenApi，需要OpenApi同时开启
+    path: /swagger-ui.html
+    tags-sorter: alpha
+    operations-sorter: alpha
+  api-docs:
+    #    enabled: true # 开启OpenApi接口
+    path: /v3/api-docs
+  group-configs:
+    - group: 'default'
+      paths-to-match: '/**'
+      # 按包路径匹配:一般到启动类的包名
+      packages-to-scan: com.hu.oneclick
+# knife4j的增强配置，不需要增强可以不配
+knife4j:
+  # 开启knife4j，无需添加@EnableKnife4j注解
+  enable: true
+  setting:
+    language: zh_cn
+    # 开启Swagger的Basic认证功能,默认是false
+#    basic:
+#      enable: true
+#      # Basic认证用户名
+#      username: 张乔
+#      # Basic认证密码
+#      password: 123456

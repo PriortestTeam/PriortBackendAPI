@@ -7,15 +7,15 @@ import com.hu.oneclick.model.domain.SysRole;
 import com.hu.oneclick.model.domain.dto.SysUserRoleDto;
 import com.hu.oneclick.server.service.SysRoleService;
 import com.hu.oneclick.server.service.UserBusinessService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -23,7 +23,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping(value = "/role")
-@Api(tags = "角色管理")
+@Tag(name = "角色管理")
 public class RoleController {
 
     @Autowired
@@ -37,7 +37,7 @@ public class RoleController {
      * @return
      */
     @GetMapping(value = "/findUserRole")
-    @ApiOperation(value = "角色对应应用显示")
+    @Operation(description = "角色对应应用显示")
     public JSONArray findUserRole(@RequestParam("UBType") String type, @RequestParam("UBKeyId") String keyId){
         JSONArray arr = new JSONArray();
         try {
@@ -63,13 +63,13 @@ public class RoleController {
     }
 
     @GetMapping(value = "/roleList")
-    @ApiOperation(value = "查询全部角色列表")
+    @Operation(description = "查询全部角色列表")
     public Resp<List<SysRole>> allList() {
         return sysRoleService.queryRoles();
     }
 
     @GetMapping(value = "/getAccountRole")
-    @ApiOperation(value = "查询全部角色为该角色的用户")
+    @Operation(description = "查询全部角色为该角色的用户")
     public Resp<List<SysUserRoleDto>> getAccountRole(@RequestParam  String roleName) {
         return sysRoleService.getAccountRole(roleName);
     }

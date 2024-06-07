@@ -12,13 +12,13 @@ import com.hu.oneclick.model.domain.dto.CustomFieldsDto;
 import com.hu.oneclick.model.domain.vo.CustomFieldVo;
 import com.hu.oneclick.model.domain.vo.CustomFileldLinkVo;
 import com.hu.oneclick.server.service.CustomFieldsService;
+import jakarta.validation.Valid;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
 import java.util.Set;
 

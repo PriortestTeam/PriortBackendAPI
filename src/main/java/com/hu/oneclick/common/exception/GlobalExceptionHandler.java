@@ -1,14 +1,11 @@
 package com.hu.oneclick.common.exception;
 
-import java.util.List;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-
 import com.google.common.collect.Lists;
 import com.hu.oneclick.common.enums.SysConstantEnum;
 import com.hu.oneclick.model.base.Resp;
 import com.hu.oneclick.model.base.Resp.Builder;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
 import org.mybatis.spring.MyBatisSystemException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,6 +23,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
+
+import java.util.List;
 
 /**
  * @author qingyang

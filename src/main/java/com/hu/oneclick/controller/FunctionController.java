@@ -11,30 +11,28 @@ import com.hu.oneclick.model.domain.SysUserBusiness;
 import com.hu.oneclick.model.domain.dto.RoleProjectFunctionDTO;
 import com.hu.oneclick.server.service.FunctionService;
 import com.hu.oneclick.server.service.UserBusinessService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author masiyi
  */
 @RestController
 @RequestMapping(value = "/function")
-@Api(tags = "功能管理")
+@Tag(name = "FunctionController", description = "功能管理")
 @Slf4j
 public class FunctionController {
 
@@ -57,7 +55,7 @@ public class FunctionController {
      * @throws Exception
      */
     @PostMapping(value = "/findMenuByPNumber")
-    @ApiOperation(value = "根据父编号查询菜单")
+    @Operation(description = "根据父编号查询菜单")
     public Resp<JSONArray> findMenuByPNumber(@RequestBody JSONObject jsonObject,
                                              HttpServletRequest request) throws Exception {
         String pNumber = jsonObject.getString("pNumber");
@@ -131,7 +129,7 @@ public class FunctionController {
      * @return
      */
     @GetMapping(value = "/findRoleFunction")
-    @ApiOperation(value = "角色对应功能显示")
+    @Operation(description = "角色对应功能显示")
     public Resp<JSONArray> findRoleFunction(@RequestParam("roleId") Long roleId,
                                             @RequestParam("projectId") Long projectId,
                                             @RequestParam("userId") Long userId,
@@ -223,7 +221,7 @@ public class FunctionController {
      * @return
      */
     @GetMapping(value = "/findRoleFunctionsById")
-    @ApiOperation(value = "根据id列表查找功能信息")
+    @Operation(description = "根据id列表查找功能信息")
     public Resp<JSONObject> findByIds(@RequestParam("roleId") Long roleId) {
         try {
             List<SysUserBusiness> list = userBusinessService.getBasicData(roleId.toString(), "RoleFunctions");
@@ -277,7 +275,7 @@ public class FunctionController {
      * @return
      */
     @PostMapping(value = "/saveRoleFunction")
-    @ApiOperation(value = "保存用户角色功能")
+    @Operation(description = "保存用户角色功能")
     public Resp<Object> saveRoleFunction(@RequestBody @Valid RoleProjectFunctionDTO dto) {
 
         SysUserBusiness sysUserBusiness = userBusinessService.getRoleProjectFunction(dto.getRoleId(), dto.getProjectId(), dto.getUserId());

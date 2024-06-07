@@ -2,6 +2,8 @@ package com.hu.oneclick.server.service.impl;
 
 import com.hu.oneclick.model.domain.dto.MailDto;
 import com.hu.oneclick.server.service.MailService;
+import jakarta.mail.MessagingException;
+import jakarta.mail.internet.MimeMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +18,6 @@ import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
-import javax.mail.MessagingException;
-import javax.mail.internet.MimeMessage;
 import java.io.File;
 
 /**
@@ -132,22 +132,24 @@ public class MailServiceImpl  implements MailService {
      * @param subject 邮件主题
      * @param contnet HTML内容
      * @param filePath 附件路径
-     * @throws MessagingException
      */
     @Override
     public void sendAttachmentsMail(String to, String subject, String contnet,
-                                    String filePath,String sendName) throws MessagingException {
+                                    String filePath,String sendName) {
         MimeMessage message = javaMailSender.createMimeMessage();
 
-        MimeMessageHelper helper = new MimeMessageHelper(message, true);
-        helper.setTo(to);
-        helper.setSubject(subject);
-        helper.setText(contnet, true);
-        helper.setFrom(from);
-
-        FileSystemResource file = new FileSystemResource(new File(filePath));
-        helper.addAttachment(sendName, file);
-
+        MimeMessageHelper helper = null;
+        try {
+            helper = new MimeMessageHelper(message, true);
+            helper.setTo(to);
+            helper.setSubject(subject);
+            helper.setText(contnet, true);
+            helper.setFrom(from);
+            FileSystemResource file = new FileSystemResource(new File(filePath));
+            helper.addAttachment(sendName, file);
+        } catch (MessagingException e) {
+            throw new RuntimeException(e);
+        }
         javaMailSender.send(message);
     }
 

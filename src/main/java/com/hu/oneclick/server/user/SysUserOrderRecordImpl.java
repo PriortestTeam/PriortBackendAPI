@@ -8,7 +8,6 @@ import com.hu.oneclick.model.domain.SysUser;
 import com.hu.oneclick.model.domain.SysUserOrder;
 import com.hu.oneclick.model.domain.SysUserOrderRecord;
 import com.hu.oneclick.server.service.SysOrderDiscountService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -16,7 +15,6 @@ import org.springframework.util.StringUtils;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * @author MaSiyi

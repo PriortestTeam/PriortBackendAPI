@@ -8,40 +8,29 @@ import com.hu.oneclick.common.page.BaseController;
 import com.hu.oneclick.model.base.Resp;
 import com.hu.oneclick.model.domain.TestCycle;
 import com.hu.oneclick.model.domain.TestCycleJoinTestCase;
-import com.hu.oneclick.model.domain.dto.ExecuteTestCaseDto;
-import com.hu.oneclick.model.domain.dto.ExecuteTestCaseRunDto;
-import com.hu.oneclick.model.domain.dto.TestCaseBisDto;
-import com.hu.oneclick.model.domain.dto.TestCaseRunDto;
-import com.hu.oneclick.model.domain.dto.TestCycleJoinTestCaseSaveDto;
-import com.hu.oneclick.model.domain.dto.TestCycleSaveDto;
+import com.hu.oneclick.model.domain.dto.*;
 import com.hu.oneclick.model.domain.param.TestCycleParam;
 import com.hu.oneclick.server.service.TestCaseService;
 import com.hu.oneclick.server.service.TestCycleJoinTestCaseService;
 import com.hu.oneclick.server.service.TestCycleService;
 import com.hu.oneclick.server.service.TestCycleTcService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import java.text.ParseException;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
-import javax.annotation.Resource;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.text.ParseException;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("testCycle")
-@Api(tags = "测试周期")
+@Tag(name = "测试周期")
 @Slf4j
 public class TestCycleController extends BaseController {
 
@@ -152,7 +141,7 @@ public class TestCycleController extends BaseController {
 //        return testCycleService.addSchedule(model);
 //    }
 
-    @ApiOperation("列表")
+    @Operation(description = "列表")
     @PostMapping("/list")
     public Resp<PageInfo<TestCycle>> list(@RequestBody @Validated TestCycleParam param) {
         startPage();
@@ -160,7 +149,7 @@ public class TestCycleController extends BaseController {
         return new Resp.Builder<PageInfo<TestCycle>>().setData(PageInfo.of(testCycleList)).ok();
     }
 
-    @ApiOperation("新增")
+    @Operation(description = "新增")
     @PostMapping("/saveTestCycle")
     public Resp<?> save(@RequestBody @Validated TestCycleSaveDto dto) {
         try {
@@ -176,7 +165,7 @@ public class TestCycleController extends BaseController {
         }
     }
 
-    @ApiOperation("修改")
+    @Operation(description = "修改")
     @PutMapping("/updateTestCycle")
     public Resp<?> update(@RequestBody @Validated TestCycleSaveDto dto) {
         try {
@@ -192,14 +181,14 @@ public class TestCycleController extends BaseController {
         }
     }
 
-    @ApiOperation("详情")
+    @Operation(description = "详情")
     @GetMapping("/info/{id}")
     public Resp<TestCycle> info(@PathVariable Long id) {
         TestCycle testCycle = testCycleService.info(id);
         return new Resp.Builder<TestCycle>().setData(testCycle).ok();
     }
 
-    @ApiOperation("删除")
+    @Operation(description = "删除")
     @DeleteMapping("/deleteTestCycle/{ids}")
     public Resp<?> delete(@PathVariable Long[] ids) {
         try {
@@ -211,7 +200,7 @@ public class TestCycleController extends BaseController {
         return new Resp.Builder<TestCycle>().ok();
     }
 
-    @ApiOperation("克隆")
+    @Operation(description = "克隆")
     @PostMapping("/clone")
     public Resp<?> clone(@RequestBody @Validated Long[] ids) {
         try {
@@ -223,7 +212,7 @@ public class TestCycleController extends BaseController {
         }
     }
 
-    @ApiOperation("列表")
+    @Operation(description = "列表")
     @PostMapping("/instance/listByTestCycle")
     public Resp<PageInfo<TestCaseBisDto>> listByTestCycle(@RequestBody TestCycleParam param) {
         if (null == param.getTestCycleId()) {
@@ -244,7 +233,7 @@ public class TestCycleController extends BaseController {
     }
 
 
-    @ApiOperation("绑定测试用例到测试周期")
+    @Operation(description = "绑定测试用例到测试周期")
     @PostMapping("/instance/saveInstance")
     public Resp<?> saveInstance(
         @RequestBody @Validated TestCycleJoinTestCaseSaveDto dto) {
@@ -259,7 +248,7 @@ public class TestCycleController extends BaseController {
         }
     }
 
-    @ApiOperation("删除测试周期绑定的测试用例")
+    @Operation(description = "删除测试周期绑定的测试用例")
     @DeleteMapping("/instance/deleteInstance")
     public Resp<?> deleteInstance(
         @RequestBody @Validated TestCycleJoinTestCaseSaveDto dto) {

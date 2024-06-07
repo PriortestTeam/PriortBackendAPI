@@ -3,12 +3,12 @@ package com.hu.oneclick.model.domain.param;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.hu.oneclick.model.domain.Issue;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
@@ -17,12 +17,12 @@ import java.io.Serializable;
  */
 @Getter
 @Setter
-@ApiModel("缺陷Param")
+@Schema(name = "缺陷Param")
 public class IssueParam implements Serializable {
-    @ApiModelProperty("名称")
+    @Schema(name = "名称")
     private String title;
 
-    @ApiModelProperty("项目ID")
+    @Schema(name = "项目ID")
     @NotNull(message = "项目ID不能为空")
     private Long projectId;
 

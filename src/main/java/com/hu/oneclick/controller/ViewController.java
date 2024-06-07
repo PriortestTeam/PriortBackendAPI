@@ -8,12 +8,12 @@ import com.hu.oneclick.model.domain.View;
 import com.hu.oneclick.model.domain.dto.ViewScopeChildParams;
 import com.hu.oneclick.model.domain.dto.ViewTreeDto;
 import com.hu.oneclick.server.service.ViewService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
 
@@ -22,7 +22,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("view")
-@Api(tags = "视图管理")
+@Tag(name = "视图管理")
 @Slf4j
 public class ViewController extends BaseController {
 
@@ -45,7 +45,7 @@ public class ViewController extends BaseController {
     }
 
     @GetMapping("getViewScopeChildParams")
-    @ApiOperation("根据范围搜索所有字段(弃用)请使用getViewScope")
+    @Operation(description = "根据范围搜索所有字段(弃用)请使用getViewScope")
     public Resp<List<ViewScopeChildParams>> getViewScopeChildParams(@RequestParam String scope) {
         return viewService.getViewScopeChildParams(scope);
     }
@@ -57,13 +57,13 @@ public class ViewController extends BaseController {
      * @Date: 2021/12/29
      */
     @GetMapping("getViewScope")
-    @ApiOperation("根据范围搜索所有字段")
+    @Operation(description = "根据范围搜索所有字段")
     public Resp<Map<String, Object>> getViewScope(@RequestParam String scope) {
         return viewService.getViewScope(scope);
     }
 
     @PostMapping("queryViews")
-    @ApiOperation("查询以当前项目的所有视图")
+    @Operation(description = "查询以当前项目的所有视图")
     private Resp<PageInfo<View>> queryViews(@RequestBody View view) {
         try {
             startPage();
@@ -76,14 +76,14 @@ public class ViewController extends BaseController {
     }
 
     @PostMapping("addView")
-    @ApiOperation("添加视图(已弃用)请使用addViewRE")
+    @Operation(description = "添加视图(已弃用)请使用addViewRE")
     private Resp<String> addView(@RequestBody View view) {
         return viewService.addView(view);
     }
 
 
     @PostMapping("addViewRE")
-    @ApiOperation("添加视图(新)")
+    @Operation(description = "添加视图(新)")
     private Resp<?> addViewRE(@RequestBody View view) {
         try {
             view = viewService.addViewRE(view);
@@ -95,7 +95,7 @@ public class ViewController extends BaseController {
     }
 
     @PostMapping("updateView")
-    @ApiOperation("修改视图")
+    @Operation(description = "修改视图")
     private Resp<?> updateView(@RequestBody View view) {
         try {
             view = viewService.updateView(view);
@@ -113,7 +113,7 @@ public class ViewController extends BaseController {
 
 
     @GetMapping("queryViewParents")
-    @ApiOperation("查询父视图")
+    @Operation(description = "查询父视图")
     private Resp<List<View>> queryViewParents(@RequestParam String scope, @RequestParam String projectId) {
         try {
             List<View> views = viewService.queryViewParents(scope, projectId);
@@ -125,13 +125,13 @@ public class ViewController extends BaseController {
     }
 
     @GetMapping("queryViewTrees")
-    @ApiOperation("查询视图树")
+    @Operation(description = "查询视图树")
     private Resp<List<ViewTreeDto>> queryViewTrees(@RequestParam String scope) {
         return viewService.queryViewTrees(scope);
     }
 
     @PostMapping("renderingView")
-    @ApiOperation("渲染视图")
+    @Operation(description = "渲染视图")
     public Resp<Object> renderingView(@RequestBody String viewId) {
         try {
             return viewService.renderingView(viewId);
@@ -143,7 +143,7 @@ public class ViewController extends BaseController {
 
 
     @PostMapping("getViewFilter")
-    @ApiOperation("获取filter字段")
+    @Operation(description = "获取filter字段")
     public Resp<Object> getViewFilter() {
         return viewService.getViewFilter();
     }

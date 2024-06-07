@@ -4,7 +4,6 @@ import com.hu.oneclick.common.constant.OneConstant;
 import com.hu.oneclick.common.exception.BizException;
 import com.hu.oneclick.common.security.service.JwtUserServiceImpl;
 import com.hu.oneclick.common.security.service.SysPermissionService;
-import com.hu.oneclick.common.util.MinioUtil;
 import com.hu.oneclick.dao.AttachmentDao;
 import com.hu.oneclick.model.base.Resp;
 import com.hu.oneclick.model.base.Result;
@@ -12,7 +11,6 @@ import com.hu.oneclick.model.domain.Attachment;
 import com.hu.oneclick.model.domain.SysUser;
 import com.hu.oneclick.model.domain.dto.AuthLoginUser;
 import com.hu.oneclick.server.service.AttachmentService;
-import io.minio.MinioClient;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,7 +35,7 @@ public class AttachmentServiceImpl implements AttachmentService {
 
     private final JwtUserServiceImpl jwtUserService;
 
-    private final MinioClient minioClient;
+//    private final MinioClient minioClient;
 
     private final AttachmentDao attachmentDao;
 
@@ -51,9 +49,9 @@ public class AttachmentServiceImpl implements AttachmentService {
     private String endpoint;
 
 
-    public AttachmentServiceImpl(JwtUserServiceImpl jwtUserService, MinioClient minioClient, AttachmentDao attachmentDao, SysPermissionService sysPermissionService) {
+    public AttachmentServiceImpl(JwtUserServiceImpl jwtUserService, AttachmentDao attachmentDao, SysPermissionService sysPermissionService) {
         this.jwtUserService = jwtUserService;
-        this.minioClient = minioClient;
+//        this.minioClient = minioClient;
         this.attachmentDao = attachmentDao;
         this.sysPermissionService = sysPermissionService;
     }
@@ -187,7 +185,7 @@ public class AttachmentServiceImpl implements AttachmentService {
         assert fileName != null;
         String extName = fileName.substring(fileName.lastIndexOf("."));
         fileName = UUID.randomUUID().toString().replace("-", "") + extName;
-        MinioUtil.putObject(minioClient, bucketName, fileName, file.getInputStream(), file);
+//        MinioUtil.putObject(minioClient, bucketName, fileName, file.getInputStream(), file);
         return fileName;
     }
 
@@ -197,7 +195,7 @@ public class AttachmentServiceImpl implements AttachmentService {
      * @param fileName
      */
     private void deleteFile(String fileName) {
-        MinioUtil.rmObject(minioClient, bucketName, fileName);
+//        MinioUtil.rmObject(minioClient, bucketName, fileName);
     }
 
     /**

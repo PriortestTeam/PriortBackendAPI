@@ -2,6 +2,7 @@ package com.hu.oneclick.common.security;
 
 import com.hu.oneclick.common.security.flutter.MyUsernamePasswordAuthenticationFilter;
 import com.hu.oneclick.common.security.handler.HttpStatusLoginFailureHandler;
+import jakarta.servlet.Filter;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.HttpSecurityBuilder;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -30,9 +31,9 @@ public class JsonLoginConfigurer<T extends JsonLoginConfigurer<T, B>, B extends 
 		http.addFilterAfter(filter, LogoutFilter.class);
 	}
 
-	public JsonLoginConfigurer<T,B> loginSuccessHandler(AuthenticationSuccessHandler authSuccessHandler){
+	public Filter loginSuccessHandler(AuthenticationSuccessHandler authSuccessHandler){
 		authFilter.setAuthenticationSuccessHandler(authSuccessHandler);
-		return this;
+		return authFilter;
 	}
 
 }

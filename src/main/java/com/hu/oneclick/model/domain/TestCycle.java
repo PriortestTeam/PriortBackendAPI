@@ -3,8 +3,8 @@ package com.hu.oneclick.model.domain;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.hu.oneclick.model.base.AssignBaseEntity;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -20,7 +20,7 @@ import java.util.Date;
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
-@ApiModel("测试周期")
+@Schema(name = "测试周期")
 @TableName("test_cycle")
 public class TestCycle extends AssignBaseEntity implements Serializable {
 
@@ -29,114 +29,114 @@ public class TestCycle extends AssignBaseEntity implements Serializable {
     /**
      * 项目id
      */
-    @ApiModelProperty("项目id")
+    @Schema(name = "项目id")
     @JsonFormat(shape = JsonFormat.Shape.STRING)
     private Long projectId;
     /**
      * 名称
      */
-    @ApiModelProperty("名称")
+    @Schema(name = "名称")
     private String title;
     /**
      * 执行进度 0: 未开始; 1:未完成; 2: 完成
      */
-    @ApiModelProperty("执行进度 0: 未开始; 1:未完成; 2: 完成")
+    @Schema(name = "执行进度 0: 未开始; 1:未完成; 2: 完成")
     private Integer exeucteProgress;
     /**
      * 运行状态
      */
-    @ApiModelProperty("运行状态")
+    @Schema(name = "运行状态")
     private Integer runStatus;
     /**
      * 最后一次运行时间
      */
-    @ApiModelProperty("最后一次运行时间")
+    @Schema(name = "最后一次运行时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date lastRunDate;
     /**
      * 版本
      */
-    @ApiModelProperty("版本")
+    @Schema(name = "版本")
     private String version;
     /**
      * 计划执行时间
      */
-    @ApiModelProperty("计划执行时间")
+    @Schema(name = "计划执行时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date planExecuteDate;
     /**
      * 描述
      */
-    @ApiModelProperty("描述")
+    @Schema(name = "描述")
     private String description;
     /**
      * 0 默认 1 选中
      */
-    @ApiModelProperty("0 默认 1 选中")
+    @Schema(name = "0 默认 1 选中")
     private Integer currentRelease;
     /**
      * 0 未选择 1选中 (当 currentVersion 选中， 此值一定选择。)
      */
-    @ApiModelProperty("0 未选择 1选中 (当 currentVersion 选中， 此值一定选择。)")
+    @Schema(name = "0 未选择 1选中 (当 currentVersion 选中， 此值一定选择。)")
     private Integer released;
     /**
      * 用例执行人
      */
-    @ApiModelProperty("用例执行人")
+    @Schema(name = "用例执行人")
     private String reportTo;
     /**
      * 关注者
      */
-    @ApiModelProperty("测试方法")
+    @Schema(name = "测试方法")
     private String testMethod;
     /**
      * 平台
      */
-    @ApiModelProperty("平台")
+    @Schema(name = "平台")
     private String testPlatform;
     /**
      * 环境
      */
-    @ApiModelProperty("环境")
+    @Schema(name = "环境")
     private String env;
 
 
-    @ApiModelProperty("allure 报告")
+    @Schema(name = "allure 报告")
     private String allureReportUrl;
-    @ApiModelProperty("instance_count")
+    @Schema(name = "instance_count")
     private Integer instanceCount;
-    @ApiModelProperty("not_run_count")
+    @Schema(name = "not_run_count")
     private Integer notRunCount;
-    @ApiModelProperty("状态，草稿，待执行")
+    @Schema(name = "状态，草稿，待执行")
     private String testCycleStatus;
-    @ApiModelProperty("计划运行job url")
+    @Schema(name = "计划运行job url")
     private String autoJobLink;
-    @ApiModelProperty("auto_job_start")
+    @Schema(name = "auto_job_start")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date autoJobStart;
-    @ApiModelProperty("auto_job_end")
+    @Schema(name = "auto_job_end")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date autoJobEnd;
-    @ApiModelProperty("frequency")
+    @Schema(name = "frequency")
     private String frequency;
-    @ApiModelProperty("remarks")
+    @Schema(name = "remarks")
     private String remarks;
 
-    @ApiModelProperty("auto_job_run_time")
+    @Schema(name = "auto_job_run_time")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date autoJobRunTime;
-    @ApiModelProperty("testcycle_expand")
+    @Schema(name = "testcycle_expand")
     private String testcycleExpand;
 
-    @ApiModelProperty("browser")
+    @Schema(name = "browser")
     private String browser;
 
-    @ApiModelProperty("test_frame")
+    @Schema(name = "test_frame")
     private String testFrame;
 
 

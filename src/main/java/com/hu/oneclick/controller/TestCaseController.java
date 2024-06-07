@@ -7,13 +7,13 @@ import com.hu.oneclick.model.domain.TestCase;
 import com.hu.oneclick.model.domain.dto.TestCaseSaveDto;
 import com.hu.oneclick.model.domain.param.TestCaseParam;
 import com.hu.oneclick.server.service.TestCaseService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.Resource;
 import java.util.Arrays;
 import java.util.List;
 
@@ -22,7 +22,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("testCase")
-@Api(tags = "测试用例")
+@Tag(name = "测试用例")
 @Slf4j
 public class TestCaseController extends BaseController {
 
@@ -30,13 +30,13 @@ public class TestCaseController extends BaseController {
     private TestCaseService testCaseService;
 
     //@GetMapping("queryById/{id}")
-    //@ApiOperation("查询测试用例")
+    //@Operation(description = "查询测试用例")
     //public Resp<TestCase> queryById(@PathVariable Long id) {
     //    return testCaseService.queryById(id);
     //}
     //
     //@PostMapping("queryList")
-    //@ApiOperation("查询测试用例")
+    //@Operation(description = "查询测试用例")
     //public Resp<List<TestCase>> queryList(@RequestBody TestCaseDto testCase) {
     //    return testCaseService.queryList(testCase);
     //}
@@ -61,19 +61,19 @@ public class TestCaseController extends BaseController {
     //}
     //
     //@PostMapping("addTestCase")
-    //@ApiOperation("添加测试用例")
+    //@Operation(description = "添加测试用例")
     //public Resp<String> addTestCase(@RequestBody TestCycleDto testCycleDto) {
     //    return testCaseService.addTestCase(testCycleDto);
     //}
     //
     //@PostMapping("updateAction")
-    //@ApiOperation("更新action")
+    //@Operation(description = "更新action")
     //public Resp<List<TestCase>> updateAction(@RequestBody List<String> testCaseId, @RequestParam String actionType
     //        , @RequestParam String testCycleId) {
     //    return testCaseService.updateAction(testCaseId, actionType, testCycleId);
     //}
 
-    @ApiOperation("列表")
+    @Operation(description = "列表")
     @PostMapping("/list")
     public Resp<PageInfo<TestCase>> list(@RequestBody @Validated TestCaseParam param) {
         startPage();
@@ -81,7 +81,7 @@ public class TestCaseController extends BaseController {
         return new Resp.Builder<PageInfo<TestCase>>().setData(PageInfo.of(testCaseList)).ok();
     }
 
-    @ApiOperation("新增")
+    @Operation(description = "新增")
     @PostMapping("/save")
     public Resp<?> save(@RequestBody @Validated TestCaseSaveDto dto) {
         try {
@@ -93,7 +93,7 @@ public class TestCaseController extends BaseController {
         }
     }
 
-    @ApiOperation("修改")
+    @Operation(description = "修改")
     @PutMapping("/update")
     public Resp<?> update(@RequestBody @Validated TestCaseSaveDto dto) {
         try {
@@ -105,7 +105,7 @@ public class TestCaseController extends BaseController {
         }
     }
 
-    @ApiOperation("详情")
+    @Operation(description = "详情")
     @GetMapping("/info/{id}")
     public Resp<TestCase> info(@PathVariable Long id) {
         TestCase testCase = testCaseService.info(id);
@@ -124,7 +124,7 @@ public class TestCaseController extends BaseController {
 //        return new Resp.Builder<TestCase>().ok();
 //    }
 
-    @ApiOperation("克隆")
+    @Operation(description = "克隆")
     @PostMapping("/clone")
     public Resp<?> clone(@RequestBody @Validated Long[] ids) {
         try {
@@ -136,14 +136,14 @@ public class TestCaseController extends BaseController {
         }
     }
 
-    @ApiOperation("测试用例输入框回显")
+    @Operation(description = "测试用例输入框回显")
     @GetMapping("/testCaseSearch")
     public  Resp<List<TestCase>> testCaseSearch(@RequestParam  Long projectId, @RequestParam String title) {
         List<TestCase> testCaseList = testCaseService.testCaseSearch(projectId,title);
         return new Resp.Builder<List<TestCase>>().setData(testCaseList).ok();
     }
 
-    @ApiOperation("删除")
+    @Operation(description = "删除")
     @DeleteMapping("/delete/{id}")
     public Resp<?> delete(@PathVariable Long id) {
        return testCaseService.removeAndChild(id);

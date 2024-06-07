@@ -10,24 +10,20 @@ import com.hu.oneclick.model.domain.dto.SubUserDto;
 import com.hu.oneclick.model.domain.dto.SysProjectPermissionDto;
 import com.hu.oneclick.model.domain.dto.SysUserTokenDto;
 import com.hu.oneclick.server.user.UserService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 import java.util.Map;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @author qingyang
  */
 @RestController
-@Api(tags = "用户管理")
+@Tag(name = "用户管理")
 @RequestMapping("user")
 public class UserController {
 
@@ -84,68 +80,68 @@ public class UserController {
         return userService.queryByNameSubUsers(subUserName);
     }
 
-    @ApiOperation("激活账户")
+    @Operation(description = "激活账户")
     @PostMapping("activateAccount")
     public Resp<String> activateAccount(@RequestBody ActivateAccountDto activateAccountDto) {
         return userService.activateAccount(activateAccountDto, OneConstant.PASSWORD.ACTIVATION);
     }
 
-    @ApiOperation("忘记密码填写邮箱")
+    @Operation(description = "忘记密码填写邮箱")
     @PostMapping("forgetThePassword")
     public Resp<String> forgetThePassword(@RequestParam String email) {
         return userService.forgetThePassword(email);
     }
 
-    @ApiOperation("忘记密码输入密码")
+    @Operation(description = "忘记密码输入密码")
     @PostMapping("forgetThePasswordIn")
     public Resp<String> forgetThePasswordIn(@RequestBody ActivateAccountDto activateAccountDto) {
         return userService.forgetThePasswordIn(activateAccountDto);
     }
 
-    @ApiOperation("申请延期填写邮箱")
+    @Operation(description = "申请延期填写邮箱")
     @PostMapping("applyForAnExtension")
     public Resp<String> applyForAnExtension(@RequestParam String email) {
         return userService.applyForAnExtension(email);
     }
 
-    @ApiOperation("申请延期输入密码")
+    @Operation(description = "申请延期输入密码")
     @PostMapping("applyForAnExtensionIn")
     public Resp<String> applyForAnExtensionIn(@RequestBody ActivateAccountDto activateAccountDto) {
         return userService.applyForAnExtensionIn(activateAccountDto);
     }
 
-    @ApiOperation("返回用户的激活次数")
+    @Operation(description = "返回用户的激活次数")
     @PostMapping("getUserActivNumber")
     public Resp<String> getUserActivNumber(@RequestParam String email) {
         return userService.getUserActivNumber(email);
     }
 
-    @ApiOperation("管理员生成token")
+    @Operation(description = "管理员生成token")
     @PostMapping("makeToken")
     public Resp<SysUserToken> makeToken(@RequestBody SysUserTokenDto sysUserTokenDto) {
         return userService.makeToken(sysUserTokenDto);
     }
 
-    @ApiOperation("获取生成的token列表")
+    @Operation(description = "获取生成的token列表")
     @PostMapping("listTokens")
     public Resp<List<SysUserToken>> listTokens() {
         return userService.listTokens();
     }
 
 
-    @ApiOperation("删除token")
+    @Operation(description = "删除token")
     @PostMapping("deleteToken")
     public Resp<String> deleteToken(@RequestParam Integer tokenId) {
         return userService.deleteToken(tokenId);
     }
 
 
-    @ApiOperation("验证链接字符串")
+    @Operation(description = "验证链接字符串")
     @PostMapping("verifyLinkString")
     public Resp<String> verifyLinkString(@RequestParam String params) {
         return userService.verifyLinkString(params);
     }
-    @ApiOperation("通过项目Id获取用户列表")
+    @Operation(description = "通过项目Id获取用户列表")
     @GetMapping("/listUserByProjectId/{projectId}")
     public Resp<List<Map<String ,Object>>> listUserByProjectId(@PathVariable("projectId") Long projectId) {
         return userService.listUserByProjectId(projectId);

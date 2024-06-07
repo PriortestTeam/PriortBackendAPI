@@ -11,13 +11,13 @@ import com.hu.oneclick.model.domain.param.TestCaseStepParam;
 import com.hu.oneclick.relation.enums.RelationCategoryEnum;
 import com.hu.oneclick.relation.service.RelationService;
 import com.hu.oneclick.server.service.TestCaseStepService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.Resource;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -31,7 +31,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("testCase/step")
 @Slf4j
-@Api(tags = "测试用例步骤")
+@Tag(name = "测试用例步骤")
 public class TestCaseStepController extends BaseController {
 
     @Resource
@@ -39,7 +39,7 @@ public class TestCaseStepController extends BaseController {
     @Resource
     private RelationService relationService;
 
-    @ApiOperation("列表")
+    @Operation(description = "列表")
     @PostMapping("/list")
     public Resp<PageInfo<TestCaseStep>> list(@RequestBody TestCaseStepParam param) {
         startPage();
@@ -47,7 +47,7 @@ public class TestCaseStepController extends BaseController {
         return new Resp.Builder<PageInfo<TestCaseStep>>().setData(PageInfo.of(testCaseStepList)).ok();
     }
 
-    @ApiOperation("新增")
+    @Operation(description = "新增")
     @PostMapping("/save")
     public Resp<?> save(@RequestBody @Validated TestCaseStepSaveDto dto) {
         try {
@@ -59,7 +59,7 @@ public class TestCaseStepController extends BaseController {
         }
     }
 
-    @ApiOperation("修改")
+    @Operation(description = "修改")
     @PutMapping("/update")
     public Resp<?> update(@RequestBody @Validated TestCaseStepSaveDto dto) {
         try {
@@ -71,14 +71,14 @@ public class TestCaseStepController extends BaseController {
         }
     }
 
-    @ApiOperation("详情")
+    @Operation(description = "详情")
     @GetMapping("/info/{id}")
     public Resp<TestCaseStep> info(@PathVariable Long id) {
         TestCaseStep testCase = testCaseStepService.info(id);
         return new Resp.Builder<TestCaseStep>().setData(testCase).ok();
     }
 
-    @ApiOperation("删除")
+    @Operation(description = "删除")
     @DeleteMapping("/delete/{ids}")
     public Resp<?> delete(@PathVariable Long[] ids) {
         try {
@@ -90,7 +90,7 @@ public class TestCaseStepController extends BaseController {
         return new Resp.Builder<TestCaseStep>().ok();
     }
 
-    @ApiOperation("查询测试用例关联的所有测试用例步骤")
+    @Operation(description = "查询测试用例关联的所有测试用例步骤")
     @GetMapping("/of/testCase/{testCaseId}")
     public Resp<List<TestCaseStep>> getTestCaseSteps(@PathVariable Long testCaseId) {
 //        return new Resp.Builder<List<TestCaseStep>>().setData(testCaseStepService.lambdaQuery().eq(TestCaseStep::getTestCaseId, testCaseId).list()).ok();

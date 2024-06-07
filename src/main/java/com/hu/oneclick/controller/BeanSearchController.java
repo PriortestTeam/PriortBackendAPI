@@ -13,16 +13,16 @@ import com.hu.oneclick.model.base.Resp;
 import com.hu.oneclick.model.domain.OneFilter;
 import com.hu.oneclick.model.domain.View;
 import com.hu.oneclick.server.service.ViewService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.annotation.Resource;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,7 +35,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/bean/search")
-@Api(tags = "复杂查询统一管理")
+@Tag(name = "BeanSearchController", description = "复杂查询统一管理")
 @Slf4j
 public class BeanSearchController {
 
@@ -55,10 +55,10 @@ public class BeanSearchController {
     private JwtUserServiceImpl jwtUserService;
 
 
-    @ApiOperation("通用查询")
+    @Operation(summary = "通用查询")
     @GetMapping("/{scope}/{viewId}")
-    public Resp<PageInfo<?>> generalQuery(@ApiParam("范围") @PathVariable String scope,
-                                           @ApiParam("视图ID") @PathVariable Long viewId
+    public Resp<PageInfo<?>> generalQuery(@Parameter(description = "范围") @PathVariable String scope,
+                                          @Parameter(description = "视图ID") @PathVariable Long viewId
     ) {
         ScopeEnum scopeEnum = ScopeEnum.getByName(scope);
         if (scopeEnum == null) {

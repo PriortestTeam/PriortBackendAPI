@@ -1,10 +1,10 @@
 package com.hu.oneclick.model.domain.dto;
 
 import com.hu.oneclick.model.domain.SysUser;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.validation.constraints.NotNull;
 import java.util.Collection;
 import java.util.List;
 

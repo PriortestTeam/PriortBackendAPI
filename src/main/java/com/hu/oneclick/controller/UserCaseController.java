@@ -7,27 +7,26 @@ import com.hu.oneclick.model.base.Resp;
 import com.hu.oneclick.model.domain.param.UserCaseParam;
 import com.hu.oneclick.model.domain.vo.UserCaseVo;
 import com.hu.oneclick.server.service.UserCaseService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.catalina.User;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
 
 @Slf4j
 @RestController
 @RequestMapping("userCase")
-@Api(tags = "故事用例")
+@Tag(name = "故事用例")
 public class UserCaseController extends BaseController {
 
     @Resource
     private UserCaseService userCaseService;
 
     @PostMapping(value = "list")
-    @ApiOperation("列表")
+    @Operation(description = "列表")
     public Resp<List<UserCaseVo>> listData(@RequestBody UserCaseParam reqEntity) {
         if (ObjectUtil.isEmpty(reqEntity)) {
             reqEntity = new UserCaseParam();
@@ -37,7 +36,7 @@ public class UserCaseController extends BaseController {
     }
 
     @PostMapping(value = "getUseCaseListByFeature")
-    @ApiOperation(value = "分页列表")
+    @Operation(description = "分页列表")
     public Resp<PageInfo<UserCaseVo>> getUseCaseListByFeature(@RequestBody UserCaseParam reqEntity) {
         if (ObjectUtil.isEmpty(reqEntity)) {
             reqEntity = new UserCaseParam();
@@ -48,7 +47,7 @@ public class UserCaseController extends BaseController {
     }
 
     @GetMapping(value = "getUseCaseListByFeature")
-    @ApiOperation(value = "分页列表")
+    @Operation(description = "分页列表")
     public Resp<PageInfo<UserCaseVo>> getUseCaseListByFeature(@RequestParam("featureId") Long featureId) {
         UserCaseParam reqEntity = new UserCaseParam();
         reqEntity.setFeatureId(featureId); // Set the featureId in the request entity
@@ -58,21 +57,21 @@ public class UserCaseController extends BaseController {
     }
 
     @GetMapping (value = "getUseCaseById")
-    @ApiOperation(value = "根据ID获取对象")
+    @Operation(description = "根据ID获取对象")
     public Resp<UserCaseVo> getUseCaseById(@RequestParam long id) {
         UserCaseVo resultEntity = this.userCaseService.getUserCaseInfoById(id);
         return new Resp.Builder<UserCaseVo>().setData(resultEntity).ok();
     }
 
     @PostMapping(value = "createUseCase")
-    @ApiOperation(value = "创建一个故事用例")
+    @Operation(description = "创建一个故事用例")
     public Resp<Boolean> createUseCase(@RequestBody UserCaseParam reqEntity) {
         boolean result = this.userCaseService.insertUserCase(reqEntity);
         return new Resp.Builder<Boolean>().setData(result).ok();
     }
 
     @PostMapping(value = "updateUseCase")
-    @ApiOperation(value = "修改故事用例")
+    @Operation(description = "修改故事用例")
     public Resp<Boolean> updateUseCase(@RequestBody UserCaseParam reqEntity) {
         UserCaseVo entity = this.userCaseService.getUserCaseInfoById(reqEntity.getId());
         if(ObjectUtil.isEmpty(entity)){
@@ -86,7 +85,7 @@ public class UserCaseController extends BaseController {
     }
 
     @DeleteMapping(value = "deleteUseCaseById")
-    @ApiOperation(value = "根据ID删除故事用例")
+    @Operation(description = "根据ID删除故事用例")
     // Assuming the request body contains a JSON object with the user case ID
     public Resp<Boolean>  deleteUseCaseById(@RequestBody Map<String, Object> requestBody) {
         // Extract the ID from the request body

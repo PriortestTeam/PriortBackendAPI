@@ -2,6 +2,7 @@ package com.hu.oneclick.common.security;
 
 import com.hu.oneclick.common.security.flutter.JwtAuthenticationFilter;
 import com.hu.oneclick.common.security.handler.HttpStatusLoginFailureHandler;
+import jakarta.servlet.Filter;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.HttpSecurityBuilder;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -33,9 +34,9 @@ public class JwtLoginConfigurer<T extends JwtLoginConfigurer<T, B>, B extends Ht
 		return this;
 	}
 
-	public JwtLoginConfigurer<T, B> tokenValidSuccessHandler(AuthenticationSuccessHandler successHandler){
+	public Filter tokenValidSuccessHandler(AuthenticationSuccessHandler successHandler){
 		authFilter.setAuthenticationSuccessHandler(successHandler);
-		return this;
+		return authFilter;
 	}
 
 }

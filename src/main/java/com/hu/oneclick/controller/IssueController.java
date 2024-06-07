@@ -8,8 +8,8 @@ import com.hu.oneclick.model.domain.Issue;
 import com.hu.oneclick.model.domain.dto.IssueSaveDto;
 import com.hu.oneclick.model.domain.param.IssueParam;
 import com.hu.oneclick.server.service.IssueService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +19,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("issue")
-@Api(tags = "缺陷")
+@Tag(name = "缺陷")
 @Slf4j
 public class IssueController extends BaseController {
 
@@ -29,7 +29,7 @@ public class IssueController extends BaseController {
         this.issueService = issueService;
     }
 
-    @ApiOperation("列表")
+    @Operation(description = "列表")
     @PostMapping("/list")
     public Resp<PageInfo<Issue>> list(@RequestBody IssueParam param) {
         if (null == param) {
@@ -41,7 +41,7 @@ public class IssueController extends BaseController {
     }
 
 
-    @ApiOperation("新增")
+    @Operation(description = "新增")
     @PostMapping("/save")
     public Resp<?> save(@RequestBody @Validated IssueSaveDto dto) {
         try {
@@ -53,7 +53,7 @@ public class IssueController extends BaseController {
         }
     }
 
-    @ApiOperation("修改")
+    @Operation(description = "修改")
     @PutMapping("/update")
     public Resp<Issue> update(@RequestBody @Validated IssueSaveDto dto) {
         try {
@@ -68,14 +68,14 @@ public class IssueController extends BaseController {
         }
     }
 
-    @ApiOperation("详情")
+    @Operation(description = "详情")
     @GetMapping("/info/{id}")
     public Resp<Issue> info(@PathVariable Long id) {
         Issue issue = this.issueService.info(id);
         return new Resp.Builder<Issue>().setData(issue).ok();
     }
 
-    @ApiOperation("删除")
+    @Operation(description = "删除")
     @DeleteMapping("/delete/{ids}")
     public Resp<?> delete(@PathVariable Long[] ids) {
         try {
@@ -88,7 +88,7 @@ public class IssueController extends BaseController {
     }
 
 
-    @ApiOperation("克隆")
+    @Operation(description = "克隆")
     @PostMapping("/clone")
     public Resp<?> clone(@RequestBody @Validated Long[] ids) {
         try {
