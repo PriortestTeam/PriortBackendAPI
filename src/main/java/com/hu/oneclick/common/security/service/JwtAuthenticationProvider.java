@@ -31,12 +31,16 @@ public class JwtAuthenticationProvider implements AuthenticationProvider {
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 		DecodedJWT jwt = ((JwtAuthenticationToken)authentication).getToken();
 		if(jwt.getExpiresAt().before(Calendar.getInstance().getTime())) {
-			throw new NonceExpiredException("Token expires");
+            throw new NonceExpiredException("Token has expired, please login again.");
 		}
 		String username = jwt.getSubject();
 		AuthLoginUser user = userService.getUserLoginInfo(username);
-		if(user == null || user.getPassword()==null) {
-			throw new NonceExpiredException("Token expires");
+		if(user == null){
+        throw new BadCredentialsException("User not found.");
+    }
+    if (user.getPassword()==null) {
+        throw new BadCredentialsException("User password is missing or invalid.");
+
 		}
 		String encryptSalt = user.getPassword();
 		try {
