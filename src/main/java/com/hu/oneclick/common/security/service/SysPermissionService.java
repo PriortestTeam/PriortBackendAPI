@@ -90,12 +90,6 @@ public class SysPermissionService {
         throw new BizException(SysConstantEnum.NOT_PERMISSION.getCode(),SysConstantEnum.NOT_PERMISSION.getValue() + sub + "。");
     }
 
-
-
-
-
-
-
     /**
      * 验证项目权限
      * @param area

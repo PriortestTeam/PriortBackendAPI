@@ -49,18 +49,31 @@ public class TokenClearLogoutHandler implements LogoutHandler {
         }
         AuthLoginUser user = (AuthLoginUser)authentication.getPrincipal();
         String username = "";
+
         if (user != null && user.getUsername() != null) {
             username = user.getSysUser().getEmail();
             jwtUserServiceImpl.deleteUserLoginInfo(user.getUsername());
             // 退出登陆的时候，将登陆的token清理掉；
+
             RBucket<Object> bucket = redissonClient.getBucket(REDIS_KEY_PREFIX.LOGIN_JWT + username);
             if (!Objects.isNull(bucket)) {
                 bucket.delete();
             }
+
+            String projectId = user.getSysUser().getUserUseOpenProject().getProjectId();
+            if (projectId != null) {
+                // Clear the token stored with project ID as a key (if applicable)
+                RBucket<Object> projectBucket = redissonClient.getBucket(REDIS_KEY_PREFIX.LOGIN_JWT + projectId);
+                if (!Objects.isNull(projectBucket)) {
+                    projectBucket.delete(); // Clear project-specific JWT token
+                }
+            }
+
         }
         Map<String, String> result = new HashMap<>(2);
         result.put("status", SysConstantEnum.LOGOUT_SUCCESS.getCode());
         result.put("msg", SysConstantEnum.LOGOUT_SUCCESS.getValue());
+
         if (jwtUserServiceImpl.verifyUserExists(username)) {
             //存在返回系统异常
             result.put("status", SysConstantEnum.SYS_ERROR.getCode());
