@@ -27,6 +27,7 @@ public class HttpStatusLoginFailureHandler implements AuthenticationFailureHandl
 		String result = "";
 		response.setStatus(HttpStatus.UNAUTHORIZED.value());
 		response.setContentType("application/json;charset=UTF-8");
+
         // 如果 token 过期，exception中没有数据，返回认证失败结果
         if (exception == null || exception.getCause() == null) {
             result = JSONObject.toJSONString(new Resp.Builder<String>().setData(SysConstantEnum.AUTH_FAILED.getValue()).httpBadRequest().fail());

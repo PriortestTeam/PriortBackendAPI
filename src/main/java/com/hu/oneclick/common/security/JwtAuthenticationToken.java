@@ -20,13 +20,16 @@ public class JwtAuthenticationToken extends AbstractAuthenticationToken {
 
 	public JwtAuthenticationToken(DecodedJWT token) {
 		super(Collections.emptyList());
-		this.token = token;
+        this.token = token;
+        this.principal = null; // Or parse from token if required.
+        this.credentials = token.getSignature(); // Or another relevant field from the token
 	}
 
 	public JwtAuthenticationToken(UserDetails principal, DecodedJWT token, Collection<? extends GrantedAuthority> authorities) {
 		super(authorities);
 		this.principal = principal;
 		this.token = token;
+        this.credentials = token.getSignature();
 	}
 
 	@Override
