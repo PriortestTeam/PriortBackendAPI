@@ -1,6 +1,7 @@
 package com.hu.oneclick.controller;
 
 import com.github.pagehelper.PageInfo;
+import com.hu.oneclick.common.exception.BizException;
 import com.hu.oneclick.common.page.BaseController;
 import com.hu.oneclick.common.security.service.JwtUserServiceImpl;
 import com.hu.oneclick.model.base.Resp;
@@ -88,6 +89,9 @@ public class ViewController extends BaseController {
         try {
             view = viewService.addViewRE(view);
             return new Resp.Builder<>().ok();
+        } catch (BizException e) {
+            log.error("新增失败，原因：" + e.getMessage(), e);
+            return new Resp.Builder<>().setCode(e.getCode()).setMsg(e.getMessage()).setHttpCode(400).fail();
         } catch (Exception e) {
             log.error("新增失败，原因：" + e.getMessage(), e);
             return new Resp.Builder<>().fail();
@@ -100,6 +104,9 @@ public class ViewController extends BaseController {
         try {
             view = viewService.updateView(view);
             return new Resp.Builder<>().ok();
+        } catch (BizException e) {
+            log.error("修改失败，原因：" + e.getMessage(), e);
+            return new Resp.Builder<>().setCode(e.getCode()).setMsg(e.getMessage()).setHttpCode(400).fail();
         } catch (Exception e) {
             log.error("修改失败，原因：" + e.getMessage(), e);
             return new Resp.Builder<>().fail();
