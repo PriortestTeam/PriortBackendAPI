@@ -382,7 +382,7 @@ public class ViewServiceImpl extends ServiceImpl<ViewDao, View> implements ViewS
             throw new BaseException(StrUtil.format("请选择一个项目"));
         }
         if (view.getViewType() == null || view.getViewType() != 1) {
-            throw new BizException("40003", "参数值非法");
+            throw new BizException("40003", "视图类型-参数值非法");
         }
         view.setProjectId(projectId);
         // 设置为子视图
