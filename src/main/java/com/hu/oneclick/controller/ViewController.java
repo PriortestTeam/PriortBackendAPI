@@ -91,7 +91,7 @@ public class ViewController extends BaseController {
             return new Resp.Builder<>().ok();
         } catch (BizException e) {
             log.error("新增失败，原因：" + e.getMessage(), e);
-            return new Resp.Builder<>().buildResult(e.getCode(), e.getMessage(), 400);
+            return new Resp.Builder<>().setCode(e.getCode()).setMsg(e.getMessage()).setHttpCode(400).fail();
         } catch (Exception e) {
             log.error("新增失败，原因：" + e.getMessage(), e);
             return new Resp.Builder<>().fail();
@@ -106,7 +106,7 @@ public class ViewController extends BaseController {
             return new Resp.Builder<>().ok();
         } catch (BizException e) {
             log.error("修改失败，原因：" + e.getMessage(), e);
-            return new Resp.Builder<>().buildResult(e.getCode(), e.getMessage(), 400);
+            return new Resp.Builder<>().setCode(e.getCode()).setMsg(e.getMessage()).setHttpCode(400).fail();
         } catch (Exception e) {
             log.error("修改失败，原因：" + e.getMessage(), e);
             return new Resp.Builder<>().fail();

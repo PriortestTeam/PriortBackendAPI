@@ -184,7 +184,7 @@ public class ViewServiceImpl extends ServiceImpl<ViewDao, View> implements ViewS
         }
 
         if (view.getViewType() != null && view.getViewType() != 1) {
-            throw new BizException("40003", "参数值非法");
+            throw new BizException("40003", "视图类型-参数值非法");
         }
 
 //        //修改视图名称要进行验证
