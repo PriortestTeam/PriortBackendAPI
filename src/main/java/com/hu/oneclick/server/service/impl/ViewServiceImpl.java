@@ -183,7 +183,7 @@ public class ViewServiceImpl extends ServiceImpl<ViewDao, View> implements ViewS
             throw new BaseException(StrUtil.format("请选择一个项目"));
         }
 
-        if (view.getViewType() != null && view.getViewType() != 1) {
+        if (view.getViewType() != null && view.getViewType() != 0) {
             throw new BizException("40003", "视图类型-参数值非法");
         }
 
@@ -381,7 +381,7 @@ public class ViewServiceImpl extends ServiceImpl<ViewDao, View> implements ViewS
         if (StringUtils.isEmpty(projectId)) {
             throw new BaseException(StrUtil.format("请选择一个项目"));
         }
-        if (view.getViewType() == null || view.getViewType() != 1) {
+        if (view.getViewType() == null || view.getViewType() != 0) {
             throw new BizException("40003", "视图类型-参数值非法");
         }
         view.setProjectId(projectId);
