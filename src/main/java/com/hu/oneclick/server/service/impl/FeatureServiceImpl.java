@@ -76,7 +76,7 @@ public class FeatureServiceImpl extends ServiceImpl<FeatureDao, Feature> impleme
             List<List<OneFilter>> filtersList = processAllFilters(view);
             params.putAll(buildSearchParams(filtersList));
 
-            return mapSearcher.search(Feature.class, params);
+            return mapSearcher.search(Feature.class, params).getDataList();
 
         } else {
             return baseMapper.selectList(param.getQueryCondition());
