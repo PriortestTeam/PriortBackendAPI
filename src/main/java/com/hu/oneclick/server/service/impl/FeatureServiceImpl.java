@@ -4,6 +4,7 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
 import com.alibaba.fastjson.JSON;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.hu.oneclick.common.exception.BaseException;
@@ -21,8 +22,8 @@ import com.hu.oneclick.server.service.FeatureService;
 import com.hu.oneclick.server.service.QueryFilterService;
 import com.hu.oneclick.server.service.ViewService;
 import com.hu.oneclick.model.entity.View;
-import com.hu.oneclick.model.domain.OneFilter;
-import com.hu.oneclick.server.service.MapSearcher;
+import com.hu.oneclick.model.entity.OneFilter;
+import cn.zhxu.bs.MapSearcher;
 import com.hu.oneclick.common.exception.BizException;
 
 import org.slf4j.Logger;
@@ -75,10 +76,10 @@ public class FeatureServiceImpl extends ServiceImpl<FeatureDao, Feature> impleme
 
             Map<String, Object> params = new HashMap<>();
             params.put("projectId", param.getProjectId());
-            List<List<OneFilter>> filtersList = processAllFilters(view); // Corrected method name
-            params.putAll(buildSearchParams(filtersList)); // Added method to build search params
+            List<List<OneFilter>> filtersList = processAllFilters(view);
+            params.putAll(buildSearchParams(filtersList));
 
-            return mapSearcher.searchFeatures(params, filtersList); // Assuming mapSearcher has this method
+            return mapSearcher.searchFeatures(params, filtersList);
 
         } else {
             // Original query logic
