@@ -14,6 +14,7 @@ import com.hu.oneclick.common.util.CloneFormatUtil;
 import com.hu.oneclick.dao.FeatureDao;
 import com.hu.oneclick.dao.FeatureJoinSprintDao;
 import com.hu.oneclick.dao.SprintDao;
+import com.hu.oneclick.model.entity.OneFilter;
 import com.hu.oneclick.model.entity.Feature;
 import com.hu.oneclick.model.domain.dto.FeatureSaveDto;
 import com.hu.oneclick.model.param.FeatureParam;
@@ -22,7 +23,6 @@ import com.hu.oneclick.server.service.FeatureService;
 import com.hu.oneclick.server.service.QueryFilterService;
 import com.hu.oneclick.server.service.ViewService;
 import com.hu.oneclick.model.entity.View;
-import com.hu.oneclick.model.entity.OneFilter;
 import cn.zhxu.bs.MapSearcher;
 import com.hu.oneclick.common.exception.BizException;
 
@@ -44,7 +44,7 @@ import java.util.stream.Collectors;
 @Service
 public class FeatureServiceImpl extends ServiceImpl<FeatureDao, Feature> implements FeatureService {
 
-    private final static Logger logger = LoggerFactory.getLogger(FeatureServiceImpl.class); // Corrected logger class name
+    private final static Logger logger = LoggerFactory.getLogger(FeatureServiceImpl.class);
 
     @Resource
     private FeatureDao featureDao;
@@ -68,7 +68,6 @@ public class FeatureServiceImpl extends ServiceImpl<FeatureDao, Feature> impleme
     @Override
     public List<Feature> list(FeatureParam param) {
         if (StrUtil.isNotBlank(param.getViewId())) {
-            // View-based query
             View view = viewService.getById(param.getViewId());
             if (view == null) {
                 throw new BizException("View not found");
@@ -82,7 +81,6 @@ public class FeatureServiceImpl extends ServiceImpl<FeatureDao, Feature> impleme
             return mapSearcher.searchFeatures(params, filtersList);
 
         } else {
-            // Original query logic
             return baseMapper.selectList(param.getQueryCondition());
         }
     }
