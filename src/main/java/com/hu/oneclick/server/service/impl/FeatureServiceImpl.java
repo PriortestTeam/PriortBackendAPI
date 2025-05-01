@@ -65,7 +65,6 @@ public class FeatureServiceImpl extends ServiceImpl<FeatureDao, Feature> impleme
     @Resource
     private MapSearcher mapSearcher;
 
-    @Override
     public List<Feature> list(FeatureParam param) {
         if (StrUtil.isNotBlank(param.getViewId())) {
             View view = viewService.getById(param.getViewId());
@@ -73,12 +72,11 @@ public class FeatureServiceImpl extends ServiceImpl<FeatureDao, Feature> impleme
                 throw new BizException("View not found");
             }
 
-            Map<String, Object> params = new HashMap<>();
-            params.put("projectId", param.getProjectId());
+            Map<String, Object> params = new LinkedHashMap<>();
             List<List<OneFilter>> filtersList = processAllFilters(view);
             params.putAll(buildSearchParams(filtersList));
 
-            return mapSearcher.searchFeatures(params, filtersList);
+            return mapSearcher.search(Feature.class, params);
 
         } else {
             return baseMapper.selectList(param.getQueryCondition());
