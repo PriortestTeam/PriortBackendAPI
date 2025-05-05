@@ -12,6 +12,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
@@ -58,10 +59,10 @@ public class View extends AssignBaseEntity implements Serializable {
      */
     private String filter;
     /**
-     * sql
+     * 视图类型
      */
-    @TableField("`sql`")
-    private String sql;
+    @NotNull(message = "视图类型不能为空")
+    private Integer viewType;
 
     @TableField(exist = false)
     private List<OneFilter> oneFilters;
