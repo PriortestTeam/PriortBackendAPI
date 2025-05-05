@@ -182,6 +182,16 @@ public class ViewServiceImpl extends ServiceImpl<ViewDao, View> implements ViewS
         if (StringUtils.isEmpty(projectId)) {
             throw new BaseException(StrUtil.format("请选择一个项目"));
         }
+
+<<<<<<< HEAD
+        if (view.getViewType() != null && view.getViewType() != 0) {
+            throw new BizException("40003", "视图类型-参数值非法");
+=======
+        if (view.getViewType() != null && view.getViewType() != 1) {
+            throw new BizException("40003", "参数值非法");
+>>>>>>> b48c430 (added view_type and removed sql)
+        }
+
 //        //修改视图名称要进行验证
 //        if (view.getTitle() != null) {
 //            Result.verifyDoesExist(queryByTitle(projectId, view.getTitle(), view.getScopeName()), view.getTitle());
@@ -376,6 +386,14 @@ public class ViewServiceImpl extends ServiceImpl<ViewDao, View> implements ViewS
         if (StringUtils.isEmpty(projectId)) {
             throw new BaseException(StrUtil.format("请选择一个项目"));
         }
+<<<<<<< HEAD
+        if (view.getViewType() == null || view.getViewType() != 0) {
+            throw new BizException("40003", "视图类型-参数值非法");
+=======
+        if (view.getViewType() == null || view.getViewType() != 1) {
+            throw new BizException("40003", "参数值非法");
+>>>>>>> b48c430 (added view_type and removed sql)
+        }
         view.setProjectId(projectId);
         // 设置为子视图
         if (StrUtil.isNotBlank(view.getParentId())) {
@@ -397,14 +415,14 @@ public class ViewServiceImpl extends ServiceImpl<ViewDao, View> implements ViewS
 //            view.setSql(sql);
     }
 
-    /**
+/*    *//**
      * 设置sql
      *
      * @Param: [oneFilter, view]
      * @return: java.lang.String
      * @Author: MaSiyi
      * @Date: 2021/11/29
-     */
+     *//*
     @Deprecated
     private String appendSql(List<OneFilter> oneFilter, View view) {
         //过滤系统字段
@@ -447,7 +465,7 @@ public class ViewServiceImpl extends ServiceImpl<ViewDao, View> implements ViewS
                 stringBuilder.append(" or ");
             }
             String condition = filter.getCondition();
-            /**
+            *//**
              *  Is 等于
              *   IsNot 不等于
              *   IsEmpty 为空
@@ -456,7 +474,7 @@ public class ViewServiceImpl extends ServiceImpl<ViewDao, View> implements ViewS
              *   LessThan 小于
              *   Include 包含
              *   Exclude 不包含
-             */
+             *//*
             stringBuilder.append(filter.getFieldNameCn());
             switch (condition) {
                 case "Is":
@@ -501,20 +519,20 @@ public class ViewServiceImpl extends ServiceImpl<ViewDao, View> implements ViewS
     }
 
 
-    /**
+    *//**
      * 执行sql
      *
      * @Param: [sql]
      * @return: com.hu.oneclick.model.base.Resp<java.lang.String>
      * @Author: MaSiyi
      * @Date: 2021/12/22
-     */
+     *//*
 
     private String sql(String sql) {
         List<Object> objects = viewDao.sql(sql);
 
         return JSON.toJSONString(objects);
-    }
+    }*/
 
     /**
      * 渲染视图
@@ -529,15 +547,17 @@ public class ViewServiceImpl extends ServiceImpl<ViewDao, View> implements ViewS
 
         View view = viewDao.queryOnlyById(viewId);
         //执行系统字段
-        String sql = view.getSql();
+       // String sql = view.getSql();
 
 
         String filter = view.getFilter();
         String scope = view.getScopeName();
         switch (scope) {
             case FieldConstant.PROJECT:
-                List<Project> projectList = JSONArray.parseArray(this.sql(sql), Project.class);
-                List<Project> projects = new ArrayList<>(projectList);
+                // List<Project> projectList = JSONArray.parseArray(this.sql(sql), Project.class);
+                return new Resp.Builder<>().setData(new ArrayList<>()).ok();// Placeholder, replace with actual data retrieval
+
+              /*  List<Project> projects = new ArrayList<>(projectList);
 
                 List<OneFilter> oneFilters = JSONArray.parseArray(filter, OneFilter.class);
 
@@ -578,10 +598,13 @@ public class ViewServiceImpl extends ServiceImpl<ViewDao, View> implements ViewS
                         projects.add(data);
                     }
                 }
-                return new Resp.Builder<>().setData(projects).ok();
+                return new Resp.Builder<>().setData(projects).ok();*/
 
             case FieldConstant.FEATURE:
-                List<Feature> featureList = JSONArray.parseArray(this.sql(sql), Feature.class);
+                //Implement data retrieval for Feature without sql
+                return new Resp.Builder<>().setData(new ArrayList<>()).ok();// Placeholder, replace with actual data retrieval
+
+               /* List<Feature> featureList = JSONArray.parseArray(this.sql(sql), Feature.class);
                 List<Feature> features = new ArrayList<>(featureList);
 
                 oneFilters = JSONArray.parseArray(filter, OneFilter.class);
@@ -666,9 +689,10 @@ public class ViewServiceImpl extends ServiceImpl<ViewDao, View> implements ViewS
                         cycles.add(data);
                     }
                 }
-                return new Resp.Builder<>().setData(cycles).ok();
+                return new Resp.Builder<>().setData(cycles).ok();*/
             case FieldConstant.TESTCASE:
-                List<TestCase> testCases = JSONArray.parseArray(this.sql(sql), TestCase.class);
+                return new Resp.Builder<>().setData(new ArrayList<>()).ok();// Placeholder, replace with actual data retrieval
+               /* List<TestCase> testCases = JSONArray.parseArray(this.sql(sql), TestCase.class);
                 List<TestCase> testCaseList = new ArrayList<>(testCases);
 
                 oneFilters = JSONArray.parseArray(filter, OneFilter.class);
@@ -710,9 +734,10 @@ public class ViewServiceImpl extends ServiceImpl<ViewDao, View> implements ViewS
                         testCaseList.add(data);
                     }
                 }
-                return new Resp.Builder<>().setData(testCaseList).ok();
+                return new Resp.Builder<>().setData(testCaseList).ok();*/
             case FieldConstant.ISSUE:
-                List<Issue> issues = JSONArray.parseArray(this.sql(sql), Issue.class);
+                return new Resp.Builder<>().setData(new ArrayList<>()).ok();// Placeholder, replace with actual data retrieval
+                /*List<Issue> issues = JSONArray.parseArray(this.sql(sql), Issue.class);
                 List<Issue> issueList = new ArrayList<>(issues);
 
                 oneFilters = JSONArray.parseArray(filter, OneFilter.class);
@@ -754,7 +779,7 @@ public class ViewServiceImpl extends ServiceImpl<ViewDao, View> implements ViewS
                         issueList.add(new Issue());
                     }
                 }
-                return new Resp.Builder<>().setData(issueList).ok();
+                return new Resp.Builder<>().setData(issueList).ok();*/
             default:
 
         }
