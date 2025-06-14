@@ -3,6 +3,7 @@ package com.hu.oneclick.controller;
 import com.github.pagehelper.PageInfo;
 import com.hu.oneclick.common.page.BaseController;
 import com.hu.oneclick.model.base.Resp;
+import com.hu.oneclick.model.domain.dto.SearchResultDto;
 import com.hu.oneclick.model.entity.TestCase;
 import com.hu.oneclick.model.domain.dto.TestCaseSaveDto;
 import com.hu.oneclick.model.param.TestCaseParam;
@@ -17,9 +18,6 @@ import javax.annotation.Resource;
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * @author qingyang
- */
 @RestController
 @RequestMapping("testCase")
 @Api(tags = "测试用例")
@@ -28,50 +26,6 @@ public class TestCaseController extends BaseController {
 
     @Resource
     private TestCaseService testCaseService;
-
-    //@GetMapping("queryById/{id}")
-    //@ApiOperation("查询测试用例")
-    //public Resp<TestCase> queryById(@PathVariable Long id) {
-    //    return testCaseService.queryById(id);
-    //}
-    //
-    //@PostMapping("queryList")
-    //@ApiOperation("查询测试用例")
-    //public Resp<List<TestCase>> queryList(@RequestBody TestCaseDto testCase) {
-    //    return testCaseService.queryList(testCase);
-    //}
-    //
-    //@PostMapping("update")
-    //public Resp<String> update(@RequestBody TestCase testCase) {
-    //    return testCaseService.update(testCase);
-    //}
-
-    //@DeleteMapping("delete/{id}")
-    //public Resp<String> delete(@PathVariable String id) {
-    //    return testCaseService.delete(id);
-    //}
-
-
-    ///**
-    // * 根据选择的故事id查询testcase 的需要的值
-    // */
-    //@GetMapping("queryTestNeedByFeatureId")
-    //public Resp<Feature> queryTestNeedByFeatureId(@RequestParam String featureId) {
-    //    return testCaseService.queryTestNeedByFeatureId(featureId);
-    //}
-    //
-    //@PostMapping("addTestCase")
-    //@ApiOperation("添加测试用例")
-    //public Resp<String> addTestCase(@RequestBody TestCycleDto testCycleDto) {
-    //    return testCaseService.addTestCase(testCycleDto);
-    //}
-    //
-    //@PostMapping("updateAction")
-    //@ApiOperation("更新action")
-    //public Resp<List<TestCase>> updateAction(@RequestBody List<String> testCaseId, @RequestParam String actionType
-    //        , @RequestParam String testCycleId) {
-    //    return testCaseService.updateAction(testCaseId, actionType, testCycleId);
-    //}
 
     @ApiOperation("列表")
     @PostMapping("/list")
@@ -112,17 +66,7 @@ public class TestCaseController extends BaseController {
         return new Resp.Builder<TestCase>().setData(testCase).ok();
     }
 
-//    @ApiOperation("删除")
-//    @DeleteMapping("/delete/{ids}")
-//    public Resp<?> delete(@PathVariable Long[] ids) {
-//        try {
-//            testCaseService.removeByIds(Arrays.asList(ids));
-//        } catch (Exception e) {
-//            log.error("删除测试用例失败，原因：" + e.getMessage(), e);
-//            return new Resp.Builder<TestCase>().fail();
-//        }
-//        return new Resp.Builder<TestCase>().ok();
-//    }
+
 
     @ApiOperation("克隆")
     @PostMapping("/clone")
@@ -138,9 +82,12 @@ public class TestCaseController extends BaseController {
 
     @ApiOperation("测试用例输入框回显")
     @GetMapping("/testCaseSearch")
-    public  Resp<List<TestCase>> testCaseSearch(@RequestParam  Long projectId, @RequestParam String title) {
-        List<TestCase> testCaseList = testCaseService.testCaseSearch(projectId,title);
-        return new Resp.Builder<List<TestCase>>().setData(testCaseList).ok();
+    public Resp<List<SearchResultDto>> testCaseSearch(
+        @RequestParam Long projectId,
+        @RequestParam String title,
+        @RequestParam String scope) {
+        List<SearchResultDto> resultList = testCaseService.testCaseSearch(projectId, title, scope);
+        return new Resp.Builder<List<SearchResultDto>>().setData(resultList).ok();
     }
 
     @ApiOperation("删除")

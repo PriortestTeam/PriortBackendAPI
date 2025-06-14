@@ -2,6 +2,7 @@ package com.hu.oneclick.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.hu.oneclick.model.annotation.Page;
+import com.hu.oneclick.model.domain.dto.SearchResultDto;
 import com.hu.oneclick.model.entity.Feature;
 import com.hu.oneclick.model.domain.dto.LeftJoinDto;
 import org.apache.ibatis.annotations.Param;
@@ -25,4 +26,9 @@ public interface FeatureDao extends BaseMapper<Feature> {
     List<Feature> queryTitlesByTestCycleId(@Param("testCycleId")String testCycleId);
 
     List<Feature> findAllByFeature(Feature feature);
+
+    /**
+     * 根据项目ID和标题搜索功能 - 只返回id和title
+     */
+    List<SearchResultDto> searchByTitleAndProjectId(@Param("projectId") Long projectId, @Param("title") String title);
 }

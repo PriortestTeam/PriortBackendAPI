@@ -87,6 +87,25 @@ public interface TestCaseService extends IService<TestCase> {
 
   List<TestCase> testCaseSearch(Long projectId, String title);
 
+    /**
+     * 通用搜索方法 - 根据scope参数在不同表中搜索
+     *
+     * @param projectId 项目ID
+     * @param title 标题关键字
+     * @param scope 搜索范围 (feature/useCase/testCase/testCycle/runCase)
+     * @return 搜索结果列表
+     */
+    List<SearchResultDto> testCaseSearch(Long projectId, String title, String scope);
+
+    /**
+     * 根据CaseId、projectId查找
+     *
+     * @param projectId
+     * @param testCaseId
+     * @return
+     */
+
+
   Resp<Map> removeAndChild(Long id);
 
   TestCase queryByProjectIdAndExteranlId(Long projectId, String exteranlId);
