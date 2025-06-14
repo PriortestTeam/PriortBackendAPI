@@ -258,4 +258,14 @@
                  LEFT JOIN test_case t2 ON t1.test_case_id = t2.id
         WHERE t1.test_cycle_id = #{testCycleId}
     </select>
+
+    <select id="searchByTitleAndProjectId" resultType="com.hu.oneclick.model.domain.dto.SearchResultDto">
+        SELECT id, title
+        FROM test_case
+        WHERE project_id = #{projectId}
+        <if test="title != null and title != ''">
+            AND title LIKE CONCAT('%', #{title}, '%')
+        </if>
+        ORDER BY title
+    </select>
 </mapper>

@@ -1,6 +1,7 @@
 package com.hu.oneclick.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.hu.oneclick.model.domain.dto.SearchResultDto;
 import com.hu.oneclick.model.entity.TestCase;
 import com.hu.oneclick.model.entity.TestCycleJoinTestCase;
 import com.hu.oneclick.model.domain.dto.TestCaseRunDto;
@@ -50,5 +51,8 @@ public interface TestCycleJoinTestCaseDao extends BaseMapper<TestCycleJoinTestCa
 
     int updateRunStatus(TestCaseRunDto testCaseRunDto, String userId);
 
-
+    /**
+     * 根据项目ID和标题搜索运行用例 - 只返回id和title
+     */
+    List<SearchResultDto> searchByTitleAndProjectId(@Param("projectId") Long projectId, @Param("title") String title);
 }

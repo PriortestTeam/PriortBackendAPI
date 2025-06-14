@@ -3,6 +3,7 @@ package com.hu.oneclick.dao;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.conditions.query.LambdaQueryChainWrapper;
 import com.hu.oneclick.model.annotation.Page;
+import com.hu.oneclick.model.domain.dto.SearchResultDto;
 import com.hu.oneclick.model.entity.TestCycle;
 import com.hu.oneclick.model.domain.dto.LeftJoinDto;
 import org.apache.ibatis.annotations.Param;
@@ -37,4 +38,9 @@ public interface TestCycleDao extends BaseMapper<TestCycle> {
     List<String> getTestCycleByProjectIdAndEvn(String projectId, String env, String testCycle);
 
     List<Map<String,Object>> queryTestCyclesWithCasesByConditions(Map<String,Object> conditions);
+
+    /**
+     * 根据项目ID和标题搜索测试周期 - 只返回id和title
+     */
+    List<SearchResultDto> searchByTitleAndProjectId(@Param("projectId") Long projectId, @Param("title") String title);
 }

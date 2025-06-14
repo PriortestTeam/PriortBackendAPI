@@ -172,4 +172,14 @@
         </set>
         where id = #{id}
     </update>
+
+    <select id="searchByTitleAndProjectId" resultType="com.hu.oneclick.model.domain.dto.SearchResultDto">
+        SELECT id, title
+        FROM feature
+        WHERE project_id = #{projectId}
+        <if test="title != null and title != ''">
+            AND title LIKE CONCAT('%', #{title}, '%')
+        </if>
+        ORDER BY title
+    </select>
 </mapper>

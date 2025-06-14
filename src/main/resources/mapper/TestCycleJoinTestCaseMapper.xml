@@ -152,4 +152,15 @@
           and project_id = #{param1.projectId}
     </update>
     <!-- 新增 WJK END-->
+
+    <select id="searchByTitleAndProjectId" resultType="com.hu.oneclick.model.domain.dto.SearchResultDto">
+        SELECT DISTINCT tcjtc.test_case_id as id, tc.title
+        FROM test_cycle_join_test_case tcjtc
+        LEFT JOIN test_case tc ON tcjtc.test_case_id = tc.id
+        WHERE tcjtc.project_id = #{projectId}
+        <if test="title != null and title != ''">
+            AND tc.title LIKE CONCAT('%', #{title}, '%')
+        </if>
+        ORDER BY tc.title
+    </select>
 </mapper>
