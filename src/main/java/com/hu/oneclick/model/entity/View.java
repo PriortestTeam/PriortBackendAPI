@@ -72,22 +72,6 @@ public class View extends AssignBaseEntity implements Serializable {
     @TableField(exist = false)
     private List<Map> autoFilter;
 
-    public void setAutoFilter(List<Map> autoFilter) {
-        this.autoFilter = autoFilter;
-        // 如果autoFilter不为空，将其转换为oneFilters
-        if (CollUtil.isNotEmpty(autoFilter)) {
-            this.oneFilters = new ArrayList<>();
-            for (Map filterMap : autoFilter) {
-                OneFilter oneFilter = new OneFilter();
-                oneFilter.setType((String) filterMap.get("type"));
-                oneFilter.setFieldNameEn((String) filterMap.get("fieldNameEn"));
-                oneFilter.setFieldNameCn((String) filterMap.get("fieldNameCn"));
-                oneFilter.setCustomFieldId((String) filterMap.get("customFieldId"));
-                this.oneFilters.add(oneFilter);
-            }
-        }
-    }
-
     /**
      * 修改人
      */

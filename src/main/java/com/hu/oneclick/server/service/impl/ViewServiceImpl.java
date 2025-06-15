@@ -397,7 +397,27 @@ public class ViewServiceImpl extends ServiceImpl<ViewDao, View> implements ViewS
         if (StrUtil.isNotBlank(view.getParentId())) {
             view.setLevel(1);
         }
-        view.setFilter(view.getFilterByManual(view.getOneFilters()));
+        // 添加子视图
+        if (1 == view.getIsAuto() && view.getLevel() == 0) {
+            // 查询项目范围内的自定义字段
+            // 添加oneFilters集合
+            // 保存子视图
+            // 从oneFilters生成autoFilter格式的数据
+            if (CollUtil.isNotEmpty(view.getOneFilters())) {
+                List<Map<String, Object>> autoFilterData = new ArrayList<>();
+                for (OneFilter oneFilter : view.getOneFilters()) {
+                    Map<String, Object> filterMap = new HashMap<>();
+                    filterMap.put("type", oneFilter.getType());
+                    filterMap.put("fieldNameEn", oneFilter.getFieldNameEn());
+                    filterMap.put("fieldNameCn", oneFilter.getFieldNameCn());
+                    filterMap.put("customFieldId", oneFilter.getCustomFieldId());
+                    autoFilterData.add(filterMap);
+                }
+                view.setFilter(JSON.toJSONString(autoFilterData));
+            }
+        } else {
+            view.setFilter(view.getFilterByManual(view.getOneFilters()));
+        }
         baseMapper.insert(view);
         return view;
         //设置sql
