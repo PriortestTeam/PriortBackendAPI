@@ -3,6 +3,7 @@ package com.hu.oneclick.server.service.impl;
 import cn.hutool.core.convert.Convert;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.core.collection.CollUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -402,19 +403,7 @@ public class ViewServiceImpl extends ServiceImpl<ViewDao, View> implements ViewS
             // 查询项目范围内的自定义字段
             // 添加oneFilters集合
             // 保存子视图
-            // 从oneFilters生成autoFilter格式的数据
-            if (CollUtil.isNotEmpty(view.getOneFilters())) {
-                List<Map<String, Object>> autoFilterData = new ArrayList<>();
-                for (OneFilter oneFilter : view.getOneFilters()) {
-                    Map<String, Object> filterMap = new HashMap<>();
-                    filterMap.put("type", oneFilter.getType());
-                    filterMap.put("fieldNameEn", oneFilter.getFieldNameEn());
-                    filterMap.put("fieldNameCn", oneFilter.getFieldNameCn());
-                    filterMap.put("customFieldId", oneFilter.getCustomFieldId());
-                    autoFilterData.add(filterMap);
-                }
-                view.setFilter(JSON.toJSONString(autoFilterData));
-            }
+            view.setFilter(view.getFilterByManual(view.getOneFilters()));
         } else {
             view.setFilter(view.getFilterByManual(view.getOneFilters()));
         }
