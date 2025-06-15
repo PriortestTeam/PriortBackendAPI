@@ -121,6 +121,17 @@ public class ViewController extends BaseController {
         return viewService.deleteView(viewId);
     }
 
+    @GetMapping("queryById/{viewId}")
+    @ApiOperation("根据ID查询视图详细信息")
+    private Resp<View> queryById(@PathVariable String viewId) {
+        try {
+            return viewService.queryById(viewId);
+        } catch (Exception e) {
+            log.error("查询视图详细信息失败，原因：" + e.getMessage(), e);
+            return new Resp.Builder<View>().fail();
+        }
+    }
+
 
     @GetMapping("queryViewParents")
     @ApiOperation("查询父视图")
