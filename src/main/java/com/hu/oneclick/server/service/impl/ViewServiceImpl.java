@@ -398,15 +398,8 @@ public class ViewServiceImpl extends ServiceImpl<ViewDao, View> implements ViewS
         if (StrUtil.isNotBlank(view.getParentId())) {
             view.setLevel(1);
         }
-        // 添加子视图
-        if (1 == view.getIsAuto() && view.getLevel() == 0) {
-            // 查询项目范围内的自定义字段
-            // 添加oneFilters集合
-            // 保存子视图
-            view.setFilter(view.getFilterByManual(view.getOneFilters()));
-        } else {
-            view.setFilter(view.getFilterByManual(view.getOneFilters()));
-        }
+        // 设置筛选条件，统一使用oneFilters处理
+        view.setFilter(view.getFilterByManual(view.getOneFilters()));
         baseMapper.insert(view);
         return view;
         //设置sql
